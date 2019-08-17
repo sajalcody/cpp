@@ -12,3 +12,6 @@ switch (n){
             case 9: cout <<"nine";break;
             
         }
+
+abs (a - b);
+(a - b) > 0 ? (a - b) : (b - a);
