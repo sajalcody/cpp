@@ -1,0 +1,12 @@
+Int ("%d"): 32 Bit integer
+Long ("%ld"): 64 bit integer
+Char ("%c"): Character type
+Float ("%f"): 32 bit real value
+Double ("%lf"): 64 bit real value
+
+
+if you are taking a million numbers as input and printing a million lines, it is faster to use scanf and printf.
+
+
+
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
