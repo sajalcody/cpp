@@ -1,0 +1,19 @@
+printf cannot printf varaible of type string
+
+ use printf("%s", your_string.c_str());
+
+Use cout << your_string; instead. Short, simple and typesafe. In fact, when you're writing C++, you generally want to avoid printf entirely -- it's a leftover from C that's rarely needed or useful in C++.
+
+As to why you should use cout instead of printf, the reasons are numerous. Here's a sampling of a few of the most obvious:
+
+As the question shows, printf isn't type-safe. If the type you pass differs from that given in the conversion specifier, printf will try to use whatever it finds on the stack as if it were the specified type, giving undefined behavior. Some compilers can warn about this under some circumstances, but some compilers can't/won't at all, and none can under all circumstances.
+printf isn't extensible. You can only pass primitive types to it. The set of conversion specifiers it understands is hard-coded in its implementation, and there's no way for you to add more/others. Most well-written C++ should use these types primarily to implement types oriented toward the problem being solved.
+It makes decent formatting much more difficult. For an obvious example, when you're printing numbers for people to read, you typically want to insert thousands separators every few digits. The exact number of digits and the characters used as separators varies, but cout has that covered as well. For example:
+
+std::locale loc("");
+std::cout.imbue(loc);
+
+std::cout << 123456.78;
+The nameless locale (the "") picks a locale based on the user's configuration. Therefore, on my machine (configured for US English) this prints out as 123,456.78. For somebody who has their computer configured for (say) Germany, it would print out something like 123.456,78. For somebody with it configured for India, it would print out as 1,23,456.78 (and of course there are many others). With printf I get exactly one result: 123456.78. It is consistent, but it's consistently wrong for everybody everywhere. Essentially the only way to work around it is to do the formatting separately, then pass the result as a string to printf, because printf itself simply will not do the job correctly.
+
+Although they're quite compact, printf format strings can be quite unreadable. Even among C programmers who use printf virtually every day, I'd guess at least 99% would need to look things up to be sure what the # in %#x means, and how that differs from what the # in %#f means (and yes, they mean entirely different things).
