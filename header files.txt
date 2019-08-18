@@ -1,3 +1,9 @@
 math.h -> abs
 
 algorithm -> max
+
+
+
+c files
+
+stdio.h -> standard input output
